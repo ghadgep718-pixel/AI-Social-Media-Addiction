@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Addict-Analyzer</a>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/signin">Sign In</a>
+          <a class="btn-ghost" href="/signup">Sign Up</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container card">
+      <h1>Analysis Result</h1>
+      <div class="stat"><strong>Name:</strong> {{ name }}</div>
+      <div class="stat"><strong>Instagram:</strong> {{ instagram }} hours</div>
+      <div class="stat"><strong>YouTube:</strong> {{ youtube }} hours</div>
+      <div class="stat"><strong>WhatsApp:</strong> {{ whatsapp }} hours</div>
+      <div class="stat"><strong>Total social media:</strong> {{ total_social }} hours</div>
+      <div class="stat"><strong>Screen time:</strong> {{ screen_time }} hours</div>
+      <div class="stat"><strong>Sleep:</strong> {{ sleep_hours }} hours</div>
+
+      <div class="stat"><strong>Addiction level:</strong>
+        {% if level == 'High Addiction' %}
+          <span class="level level-high">{{ level }}</span>
+        {% elif level == 'Moderate Addiction' %}
+          <span class="level level-moderate">{{ level }}</span>
+        {% else %}
+          <span class="level level-low">{{ level }}</span>
+        {% endif %}
+      </div>
+
+      <div class="stat"><strong>Health warning:</strong> {{ warning }}</div>
+
+      <a class="btn" href="/">Back</a>
+    </main>
+  </body>
+</html>

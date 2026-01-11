@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analyzer - Addict-Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Addict-Analyzer</a>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/analyze">Analyze</a>
+          <a class="btn-ghost" href="/signout">Sign Out</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Analyze Your Usage</h1>
+      <p class="muted">Fill in your daily usage and get an instant analysis.</p>
+
+      <form action="/add" method="post" class="card form-card">
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" value="{{ user_name }}" required>
+        </div>
+
+        <div class="form-row grid-3">
+          <div>
+            <label for="instagram">Instagram (hours)</label>
+            <input type="number" id="instagram" name="instagram" min="0" step="0.1" value="0">
+          </div>
+          <div>
+            <label for="youtube">YouTube (hours)</label>
+            <input type="number" id="youtube" name="youtube" min="0" step="0.1" value="0">
+          </div>
+          <div>
+            <label for="whatsapp">WhatsApp (hours)</label>
+            <input type="number" id="whatsapp" name="whatsapp" min="0" step="0.1" value="0">
+          </div>
+        </div>
+
+        <div class="form-row grid-2">
+          <div>
+            <label for="screen_time">Total Screen Time (hours)</label>
+            <input type="number" id="screen_time" name="screen_time" min="0" step="0.1" value="0" readonly>
+          </div>
+          <div>
+            <label for="sleep_hours">Sleep (hours)</label>
+            <input type="number" id="sleep_hours" name="sleep_hours" min="0" step="0.1" value="7">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <button type="submit" class="btn">Analyze</button>
+        </div>
+      </form>
+      <script>
+        // Auto-sum social inputs into the screen_time field.
+        (function(){
+          const ids = ['instagram','youtube','whatsapp'];
+          const inputs = ids.map(id => document.getElementById(id));
+          const screen = document.getElementById('screen_time');
+
+          function calculate(){
+            const sum = inputs.reduce((acc, inp) => acc + (parseFloat(inp.value) || 0), 0);
+            // Round to one decimal place for display
+            screen.value = Math.round(sum * 10) / 10;
+          }
+
+          inputs.forEach(i => i.addEventListener('input', calculate));
+          // Initialize on load
+          calculate();
+        })();
+      </script>
+    </main>
+  </body>
+</html>

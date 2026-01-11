@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Social Media Addiction Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Addict-Analyzer</a>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          {% if user_name %}
+            <span style="margin-left:18px;font-weight:600">Welcome, {{ user_name }}!</span>
+            <a class="btn-ghost" href="/signout">Sign Out</a>
+          {% else %}
+            <a href="/signin">Sign In</a>
+            <a class="btn-ghost" href="/signup">Sign Up</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div style="padding:12px 18px">
+            {% for category, message in messages %}
+              <p class="flash {{ category }}">{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      <section class="hero-full card" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=7e1b6f0d6b6f2a7c2b1e9e9b7f5f8c1a');border-radius:0;margin:0">
+        <div class="hero-overlay"></div>
+        <div class="hero-content wrap">
+          <div style="flex:1">
+            {% if user_name %}
+              <h1>Welcome back, {{ user_name }} 👋</h1>
+              <p class="muted">Track your daily usage, get insights, and build healthier habits.</p>
+              <div class="hero-cta">
+                <a class="btn" href="/analyze">Open Dashboard</a>
+                <a class="btn-ghost" href="/about" style="margin-left:10px">Learn More</a>
+              </div>
+            {% else %}
+              <h1>Reduce screen time. Improve wellbeing.</h1>
+              <p class="muted">Sign up or sign in to analyze your social media usage and get simple tips.</p>
+              <div class="hero-cta">
+                <a class="btn" href="/signup">Get Started</a>
+                <a class="btn-ghost" href="/signin" style="margin-left:10px">Sign In</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <div class="container" style="padding:20px 18px">
+        <!-- Additional content can go here -->
+      </div>
+    </main>
+  </body>
+</html>

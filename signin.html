@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign In - Addict-Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">Addict-Analyzer</a>
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/signin">Sign In</a>
+          <a class="btn-ghost" href="/signup">Sign Up</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <h1>Sign In</h1>
+      <form action="/signin" method="post" class="card form-card">
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-row">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" minlength="6" required>
+        </div>
+        <div class="form-row">
+          <button class="btn" type="submit">Sign In</button>
+        </div>
+      </form>
+      {% if error %}
+        <p style="color:var(--danger);font-weight:600">{{ error }}</p>
+      {% endif %}
+      <p class="muted">Don't have an account? <a href="/signup">Create one</a></p>
+    </main>
+  </body>
+</html>
